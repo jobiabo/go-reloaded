@@ -31,7 +31,7 @@ func HexBin(s string) string {
 				switch pointv {
 				case "bin":
 					numi, err := strconv.ParseInt(ssplit[i-j], 2, 64)
-					if err != nil {
+					if err == nil {
 						return err.Error()
 					}
 					ssplit[i-j] = strconv.FormatInt(numi, 10)
@@ -51,16 +51,23 @@ func HexBin(s string) string {
 }
 
 func CapAlphaMod(s string) string {
-	spcomma := strings.ReplaceAll(s, ", ", ",")
-	ssplit := strings.Fields(spcomma)
+
+	
+	s = strings.ReplaceAll(s, "(cap, ", "(cap,")
+	s = strings.ReplaceAll(s, "(up, ", "(up,")
+	s = strings.ReplaceAll(s, "(low, ", "(low,")
+
+	ssplit := strings.Fields(s)
 
 	for i := 0; i < len(ssplit); i++ {
+
 		if strings.HasPrefix(ssplit[i], "(up") ||
 			strings.HasPrefix(ssplit[i], "(low") ||
 			strings.HasPrefix(ssplit[i], "(cap") {
 
 			cleanedi := strings.Trim(ssplit[i], "()")
 			sepi := strings.Split(cleanedi, ",")
+
 			point := strings.TrimSpace(sepi[0])
 			count := 1
 
@@ -72,11 +79,13 @@ func CapAlphaMod(s string) string {
 			}
 
 			for j := 1; j <= count; j++ {
+
 				if i-j < 0 {
 					break
 				}
 
 				switch point {
+
 				case "up":
 					ssplit[i-j] = strings.ToUpper(ssplit[i-j])
 
@@ -90,15 +99,17 @@ func CapAlphaMod(s string) string {
 					}
 				}
 			}
+
 			ssplit = append(ssplit[:i], ssplit[i+1:]...)
 			i--
 		}
 	}
+
 	return strings.Join(ssplit, " ")
 }
 
 func Vowels(s string) string {
-	// lows := strings.ToLower(s)
+	
 	ssplit := strings.Fields(s)
 
 	for i := 1; i < len(ssplit); i++ {
