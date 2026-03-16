@@ -20,7 +20,7 @@ func HexBin(s string) string {
 
 			if len(sepi) > 1 {
 				num, err := strconv.Atoi(strings.TrimSpace(sepi[1]))
-				if err != nil {
+				if err == nil {
 					count = num
 				}
 			}
@@ -91,6 +91,7 @@ func CapAlphaMod(s string) string {
 				}
 			}
 			ssplit = append(ssplit[:i], ssplit[i+1:]...)
+			i--
 		}
 	}
 	return strings.Join(ssplit, " ")
