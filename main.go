@@ -31,10 +31,12 @@ func main() {
 	sampleIn = helper.PunctAAte(sampleIn)
 	
 
-	err = os.WriteFile(outputFile, []byte(sampleIn), 0644)
+	err = os.WriteFile(outputFile, []byte(sampleIn+"\n"), 0644)
 	if err != nil {
 		fmt.Println("error writing file", err)
 		return
 	}
+
+	fmt.Println("synced successfully")
 
 }
