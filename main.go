@@ -24,10 +24,12 @@ func main() {
 
 	sampleIn := string(data)
 
-	sampleIn = helper.CapAlphaMod(sampleIn)
+	
 	sampleIn = helper.HexBin(sampleIn)
-	sampleIn = helper.PunctAAte(sampleIn)
+	sampleIn = helper.CapAlphaMod(sampleIn)
 	sampleIn = helper.Vowels(sampleIn)
+	sampleIn = helper.PunctAAte(sampleIn)
+	
 
 	err = os.WriteFile(outputFile, []byte(sampleIn), 0644)
 	if err != nil {

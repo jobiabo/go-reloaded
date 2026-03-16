@@ -1,7 +1,7 @@
 package helper
 
 import (
-	"fmt"
+	// "fmt"
 	"strconv"
 	"strings"
 )
@@ -21,7 +21,6 @@ func HexBin(s string) string {
 			if len(sepi) > 1 {
 				num, err := strconv.Atoi(strings.TrimSpace(sepi[1]))
 				if err != nil {
-					fmt.Println("an error occured")
 					count = num
 				}
 			}
@@ -98,21 +97,27 @@ func CapAlphaMod(s string) string {
 }
 
 func Vowels(s string) string {
-	lows := strings.ToLower(s)
-	ssplit := strings.Fields(lows)
+	// lows := strings.ToLower(s)
+	ssplit := strings.Fields(s)
 
 	for i := 1; i < len(ssplit); i++ {
 		if strings.HasPrefix(ssplit[i], "a") ||
 			strings.HasPrefix(ssplit[i], "e") ||
-			strings.HasPrefix(ssplit[i], "e") ||
+			strings.HasPrefix(ssplit[i], "i") ||
 			strings.HasPrefix(ssplit[i], "o") ||
 			strings.HasPrefix(ssplit[i], "u") ||
-			strings.HasPrefix(ssplit[i], "h") {
+			strings.HasPrefix(ssplit[i], "h") ||
+			strings.HasPrefix(ssplit[i], "A") ||
+			strings.HasPrefix(ssplit[i], "E") ||
+			strings.HasPrefix(ssplit[i], "I") ||
+			strings.HasPrefix(ssplit[i], "O") ||
+			strings.HasPrefix(ssplit[i], "U") ||
+			strings.HasPrefix(ssplit[i], "H") {
 
 			cleanedi := strings.TrimSpace(string(ssplit[i][0]))
 
 			switch cleanedi {
-			case "a", "e", "i", "o", "u", "h":
+			case "a", "e", "i", "o", "u", "h", "A", "E", "I", "O", "U":
 
 				if ssplit[i-1] == "a" {
 					ssplit[i-1] = "an"
