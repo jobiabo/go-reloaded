@@ -2,6 +2,7 @@ package helper
 
 import (
 	// "fmt"
+	"fmt"
 	"strconv"
 	"strings"
 )
@@ -32,14 +33,14 @@ func HexBin(s string) string {
 				case "bin":
 					numi, err := strconv.ParseInt(ssplit[i-j], 2, 64)
 					if err == nil {
-						return err.Error()
+						fmt.Println("conversion succesful")
 					}
 					ssplit[i-j] = strconv.FormatInt(numi, 10)
 
 				case "hex":
 					numi, err := strconv.ParseInt(ssplit[i-j], 16, 64)
 					if err != nil {
-						return err.Error()
+						fmt.Println("conversion succesful")
 					}
 					ssplit[i-j] = strconv.FormatInt(numi, 10)
 				}
@@ -52,7 +53,6 @@ func HexBin(s string) string {
 
 func CapAlphaMod(s string) string {
 
-	
 	s = strings.ReplaceAll(s, "(cap, ", "(cap,")
 	s = strings.ReplaceAll(s, "(up, ", "(up,")
 	s = strings.ReplaceAll(s, "(low, ", "(low,")
@@ -109,7 +109,7 @@ func CapAlphaMod(s string) string {
 }
 
 func Vowels(s string) string {
-	
+
 	ssplit := strings.Fields(s)
 
 	for i := 1; i < len(ssplit); i++ {
@@ -133,6 +133,10 @@ func Vowels(s string) string {
 
 				if ssplit[i-1] == "a" {
 					ssplit[i-1] = "an"
+				} else {
+					if ssplit[i-1] == "A" {
+						ssplit[i-1] = "An"
+					}
 				}
 
 			}
@@ -145,5 +149,14 @@ func PunctAAte(s string) string {
 	s = strings.ReplaceAll(s, " ...", "... ")
 	s = strings.ReplaceAll(s, " ,", ", ")
 	s = strings.ReplaceAll(s, " ?", "?")
-	return s
+	s = strings.ReplaceAll(s, " :", ":")
+	s = strings.ReplaceAll(s, "' ", "'")
+	// s = strings.ReplaceAll(s, " '", "'")
+	s = strings.ReplaceAll(s, " .", ".")
+	f := strings.Fields(s)
+	// g := strings.Split(f, "'")
+	h := strings.TrimSpace(f[2])
+	f[2] = h
+
+	return strings.Join(f, " ")
 }
