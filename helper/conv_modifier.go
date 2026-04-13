@@ -31,7 +31,7 @@ func ModAphaNum(input string) string {
 				sliceInput = append(sliceInput[:i], sliceInput[i+1:]...)
 				i--
 
-			case "(cap,", "(cap)":
+			case "(cap,":
 				numAttach := strings.Trim(sliceInput[i+1], ")")
 				count := 1
 
@@ -51,6 +51,16 @@ func ModAphaNum(input string) string {
 						if len(sliceInput) > i {
 							sliceInput = append(sliceInput[:i], sliceInput[i+2:]...)
 						}
+					}
+
+				}
+			case "(cap)":
+				w := strings.ToLower(sliceInput[i-1])
+				if len(w) > 0 {
+					sliceInput[i-1] = strings.ToUpper(w)
+
+					if len(sliceInput) > i {
+						sliceInput = append(sliceInput[:i], sliceInput[i+1:]...)
 					}
 
 				}
