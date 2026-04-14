@@ -11,7 +11,7 @@ func ModAphaNum(input string) string {
 	for i := 0; i < len(sliceInput); i++ {
 		if strings.HasPrefix(sliceInput[i], "(hex") || strings.HasPrefix(sliceInput[i], "(bin") ||
 			strings.HasPrefix(sliceInput[i], "(cap") || strings.HasPrefix(sliceInput[i], "(low") ||
-			strings.HasPrefix(sliceInput[i], "(cap") {
+			strings.HasPrefix(sliceInput[i], "(low") {
 			switch sliceInput[i] {
 
 			case "(hex)":
@@ -49,7 +49,7 @@ func ModAphaNum(input string) string {
 						sliceInput[i-j] = strings.ToUpper(string(w[0])) + w[1:]
 
 						if len(sliceInput) > i {
-							sliceInput = append(sliceInput[:i], sliceInput[i+2:]...)
+							sliceInput = append(sliceInput[:i], sliceInput[i:]...)
 						}
 					}
 
@@ -57,7 +57,7 @@ func ModAphaNum(input string) string {
 			case "(cap)":
 				w := strings.ToLower(sliceInput[i-1])
 				if len(w) > 0 {
-					sliceInput[i-1] = strings.ToUpper(w)
+					sliceInput[i-1] = strings.ToUpper(string(w[0])) + w[1:]
 
 					if len(sliceInput) > i {
 						sliceInput = append(sliceInput[:i], sliceInput[i+1:]...)
