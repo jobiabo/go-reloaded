@@ -1,12 +1,14 @@
 package helper
 
 import (
+	"fmt"
 	"strconv"
 	"strings"
 )
 
 func ModAphaNum(input string) string {
 	sliceInput := strings.Fields(input)
+	var result []string
 
 	for i := 0; i < len(sliceInput); i++ {
 		if strings.HasPrefix(sliceInput[i], "(hex") || strings.HasPrefix(sliceInput[i], "(bin") ||
@@ -33,34 +35,21 @@ func ModAphaNum(input string) string {
 
 			case "(cap,":
 				numAttach := strings.Trim(sliceInput[i+1], ")")
-				count := 1
 
 				num, err := strconv.Atoi(strings.TrimSpace(numAttach))
 				if err == nil {
-					count = num
+					fmt.Println(err)
 				}
 
-				for j := 1; j <= count; j++ {
-					if i-j < 0 {
-						break
-					}
-					w := strings.ToLower(sliceInput[i-j])
-					if len(w) > 0 {
-						sliceInput[i-j] = strings.ToUpper(string(w[0])) + w[1:]
+				for j := len(result) - num; j < len(result); j++ {
+					if len(result[j]) > 0 {
+						result[j] = strings.ToUpper(string(result[j][0])) + strings.ToLower(result[j][1:])
 
-						if len(sliceInput) > i {
-							sliceInput = append(sliceInput[:i], sliceInput[i:]...)
-						}
-					}
+						result = append(result[:i], result[i+1:]...)
+						i--
 
-				}
-			case "(cap)":
-				w := strings.ToLower(sliceInput[i-1])
-				if len(w) > 0 {
-					sliceInput[i-1] = strings.ToUpper(string(w[0])) + w[1:]
-
-					if len(sliceInput) > i {
-						sliceInput = append(sliceInput[:i], sliceInput[i+1:]...)
+					} else {
+						result = append(result, sliceInput[i])
 					}
 
 				}
@@ -68,5 +57,9 @@ func ModAphaNum(input string) string {
 			}
 		}
 	}
-	return strings.Join(sliceInput, " ")
+	return strings.Join(result, " ")
+}
+
+func main() {
+	fmt.Println(ModAphaNum("my name is ben"))
 }
